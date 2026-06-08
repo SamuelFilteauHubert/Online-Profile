@@ -287,3 +287,62 @@ h2 {
     order: 0;
   }
 }
+
+.goal-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  align-items: stretch;
+}
+
+.goal-grid ul {
+  padding-left: 1.2rem;
+}
+
+.goal-grid li {
+  margin-bottom: 0.75rem;
+}
+
+.roadmap {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.roadmap-step {
+  border: 1px solid var(--border-color);
+  background-color: var(--card-color);
+  padding: 1rem;
+}
+
+.step-number {
+  display: inline-flex;
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid var(--accent-color);
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.5rem;
+  color: var(--accent-color);
+  font-weight: bold;
+}
+
+.split-section {
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+  align-items: center;
+}
+
+@media (max-width: 800px) {
+  .goal-grid,
+  .roadmap {
+    grid-template-columns: 1fr;
+  }
+
+  .split-section {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
