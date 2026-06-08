@@ -399,3 +399,56 @@ h2 {
   }
 }
 
+.contact-layout {
+  display: grid;
+  grid-template-columns: 1.3fr 0.9fr;
+  gap: 2rem;
+}
+
+.contact-form,
+.contact-info {
+  border: 1px solid var(--border-color);
+  background-color: var(--card-color);
+  padding: 1.5rem;
+}
+
+.contact-form {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.contact-form label {
+  font-weight: bold;
+}
+
+.contact-form input,
+.contact-form textarea,
+.contact-form button,
+.settings select {
+  font: inherit;
+}
+
+.contact-form input,
+.contact-form textarea,
+.settings select {
+  width: 100%;
+  padding: 0.7rem;
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+.contact-card {
+  border-top: 1px solid var(--border-color);
+  padding: 1rem 0;
+}
+
+.contact-card:first-of-type {
+  border-top: none;
+}
+
+@media (max-width: 800px) {
+  .contact-layout {
+    grid-template-columns: 1fr;
+  }
+}
