@@ -346,3 +346,56 @@ h2 {
     align-items: flex-start;
   }
 }
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.skill-list {
+  padding-left: 1.2rem;
+}
+
+.skill-list li {
+  margin-bottom: 0.5rem;
+}
+
+.experience-layout {
+  display: grid;
+  grid-template-columns: 1.5fr 0.8fr;
+  gap: 2rem;
+}
+
+.side-panel {
+  border: 1px solid var(--border-color);
+  background-color: var(--card-color);
+  padding: 1rem;
+}
+
+.mini-card {
+  border-top: 1px solid var(--border-color);
+  padding: 1rem 0;
+}
+
+.mini-card:first-of-type {
+  border-top: none;
+}
+
+@media (max-width: 1000px) {
+  .skills-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .experience-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 800px) {
+  .skills-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
