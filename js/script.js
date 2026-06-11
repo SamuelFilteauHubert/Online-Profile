@@ -168,6 +168,13 @@ const translations = {
     "cvModal.french": "French CV",
     "cvModal.bilingual": "French & English CV",
 
+    "emailModal.title": "Choose how to send your message",
+    "emailModal.text": "Your message is ready. Choose the email service you want to use.",
+    "emailModal.default": "Default email app",
+    "emailModal.copy": "Copy message",
+    "emailModal.copySuccess": "Message copied. You can paste it into your email service.",
+    "emailModal.copyError": "Could not copy automatically. Please copy the message manually.",
+
     "footer.connect": "Let’s connect!",
   },
 
@@ -337,6 +344,13 @@ const translations = {
     "cvModal.french": "CV français",
     "cvModal.bilingual": "CV français et anglais",
 
+    "emailModal.title": "Choisir comment envoyer votre message",
+    "emailModal.text": "Votre message est prêt. Choisissez le service de courriel que vous voulez utiliser.",
+    "emailModal.default": "Application de courriel par défaut",
+    "emailModal.copy": "Copier le message",
+    "emailModal.copySuccess": "Message copié. Vous pouvez le coller dans votre service de courriel.",
+    "emailModal.copyError": "Impossible de copier automatiquement. Veuillez copier le message manuellement.",
+
     "footer.connect": "Restons en contact!"
   }
 };
@@ -432,8 +446,146 @@ if (cvModal) {
   });
 }
 
+const contactForm = document.getElementById("contact-form");
+
+const emailModal = document.getElementById("email-modal");
+const closeEmailModalButton = document.getElementById("close-email-modal");
+
+const sendDefaultEmailButton = document.getElementById("send-default-email");
+const sendGmailButton = document.getElementById("send-gmail");
+const sendOutlookButton = document.getElementById("send-outlook");
+const copyEmailMessageButton = document.getElementById("copy-email-message");
+const copyStatus = document.getElementById("copy-status");
+
+let preparedEmailSubject = "";
+let preparedEmailBody = "";
+const myEmailAddress = "samuelfilteauhubert@gmail.com";
+
+function openEmailModal() {
+  if (!emailModal) return;
+
+  emailModal.classList.add("open");
+  emailModal.setAttribute("aria-hidden", "false");
+}
+
+function closeEmailModal() {
+  if (!emailModal) return;
+
+  emailModal.classList.remove("open");
+  emailModal.setAttribute("aria-hidden", "true");
+
+  if (copyStatus) {
+    copyStatus.textContent = "";
+  }
+}
+
+function buildMailtoLink() {
+  return (
+    `mailto:${myEmailAddress}` +
+    `?subject=${encodeURIComponent(preparedEmailSubject)}` +
+    `&body=${encodeURIComponent(preparedEmailBody)}`
+  );
+}
+
+function buildGmailLink() {
+  return (
+    "https://mail.google.com/mail/?view=cm&fs=1" +
+    `&to=${encodeURIComponent(myEmailAddress)}` +
+    `&su=${encodeURIComponent(preparedEmailSubject)}` +
+    `&body=${encodeURIComponent(preparedEmailBody)}`
+  );
+}
+
+function buildOutlookLink() {
+  return (
+    "https://outlook.live.com/mail/0/deeplink/compose" +
+    `?to=${encodeURIComponent(myEmailAddress)}` +
+    `&subject=${encodeURIComponent(preparedEmailSubject)}` +
+    `&body=${encodeURIComponent(preparedEmailBody)}`
+  );
+}
+
+if (contactForm) {
+  contactForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    const name = document.getElementById("name").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const subject = document.getElementById("subject").value.trim();
+    const message = document.getElementById("message").value.trim();
+
+    preparedEmailSubject = subject || "Message from portfolio website";
+
+    preparedEmailBody = `
+Name: ${name}
+Email: ${email}
+
+Message:
+${message}
+    `.trim();
+
+    openEmailModal();
+  });
+}
+
+if (sendDefaultEmailButton) {
+  sendDefaultEmailButton.addEventListener("click", () => {
+    window.location.href = buildMailtoLink();
+  });
+}
+
+if (sendGmailButton) {
+  sendGmailButton.addEventListener("click", () => {
+    window.open(buildGmailLink(), "_blank", "noopener,noreferrer");
+  });
+}
+
+if (sendOutlookButton) {
+  sendOutlookButton.addEventListener("click", () => {
+    window.open(buildOutlookLink(), "_blank", "noopener,noreferrer");
+  });
+}
+
+if (copyEmailMessageButton) {
+  copyEmailMessageButton.addEventListener("click", async () => {
+    const fullMessage = `
+To: ${myEmailAddress}
+Subject: ${preparedEmailSubject}
+
+${preparedEmailBody}
+    `.trim();
+
+    try {
+      await navigator.clipboard.writeText(fullMessage);
+
+      if (copyStatus) {
+        const language = localStorage.getItem("language") || "en";
+        copyStatus.textContent = translations[language]["emailModal.copySuccess"];
+      }
+    } catch {
+      if (copyStatus) {
+        const language = localStorage.getItem("language") || "en";
+        copyStatus.textContent = translations[language]["emailModal.copyError"];
+      }
+    }
+  });
+}
+
+if (closeEmailModalButton) {
+  closeEmailModalButton.addEventListener("click", closeEmailModal);
+}
+
+if (emailModal) {
+  emailModal.addEventListener("click", (event) => {
+    if (event.target === emailModal) {
+      closeEmailModal();
+    }
+  });
+}
+
 document.addEventListener("keydown", (event) => {
   if (event.key === "Escape") {
     closeCvModal();
+    closeEmailModal();
   }
 });

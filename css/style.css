@@ -508,3 +508,35 @@ h2 {
   gap: 1rem;
   margin-top: 1.5rem;
 }
+
+.email-options {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.email-option-button {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 48px;
+  padding: 0.75rem 1rem;
+  text-align: center;
+}
+
+.email-option-icon {
+  position: absolute;
+  left: 1rem;
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+}
+
+.email-option-button span {
+  display: block;
+  width: 100%;
+  text-align: center;
+  line-height: 1.2;
+}

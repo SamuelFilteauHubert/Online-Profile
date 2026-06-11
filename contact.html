@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -61,7 +62,7 @@
 
     <section class="section">
       <div class="container contact-layout">
-        <form class="contact-form">
+        <form class="contact-form" id="contact-form">
           <h2 data-i18n="contact.formTitle">Send me a message</h2>
 
           <label for="name" data-i18n="contact.nameLabel">Name</label>
@@ -71,6 +72,7 @@
             name="name"
             placeholder="Your name"
             data-i18n-placeholder="contact.namePlaceholder"
+            required
           />
 
           <label for="email" data-i18n="contact.emailLabel">Email</label>
@@ -80,6 +82,7 @@
             name="email"
             placeholder="your.email@example.com"
             data-i18n-placeholder="contact.emailPlaceholder"
+            required
           />
 
           <label for="subject" data-i18n="contact.subjectLabel">Subject</label>
@@ -89,6 +92,7 @@
             name="subject"
             placeholder="Message subject"
             data-i18n-placeholder="contact.subjectPlaceholder"
+            required
           />
 
           <label for="message" data-i18n="contact.messageLabel">Message</label>
@@ -98,6 +102,7 @@
             rows="6"
             placeholder="Write your message here"
             data-i18n-placeholder="contact.messagePlaceholder"
+            required
           ></textarea>
 
           <button type="submit" class="button" data-i18n="contact.sendButton">
@@ -254,6 +259,58 @@
           French & English CV
         </a>
       </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="email-modal" aria-hidden="true">
+    <div class="modal-box" role="dialog" aria-labelledby="email-modal-title">
+      <button type="button" class="modal-close" id="close-email-modal" aria-label="Close">
+        ×
+      </button>
+
+      <h2 id="email-modal-title" data-i18n="emailModal.title">
+        Choose how to send your message
+      </h2>
+
+      <p data-i18n="emailModal.text">
+        Your message is ready. Choose the email service you want to use.
+      </p>
+
+      <div class="email-options">
+        <button
+          type="button"
+          class="button email-option-button"
+          id="send-default-email"
+        >
+          <span data-i18n="emailModal.default">Default email app</span>
+        </button>
+
+        <button
+          type="button"
+          class="button secondary email-option-button"
+          id="send-gmail"
+        >
+          <span>Gmail</span>
+        </button>
+
+        <button
+          type="button"
+          class="button secondary email-option-button"
+          id="send-outlook"
+        >
+          <span>Outlook</span>
+        </button>
+
+        <button
+          type="button"
+          class="button secondary email-option-button"
+          id="copy-email-message"
+        >
+          <span data-i18n="emailModal.copy">Copy message</span>
+        </button>
+      </div>
+
+      <p class="form-note" id="copy-status"></p>
     </div>
   </div>
 </body>
